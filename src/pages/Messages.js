@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 export const Messages = (props) => {
-
     const chatId = props.chat_id;
     const access = props.access;
     const [messages, setMessages] = useState([]); // State to store messages
@@ -10,56 +9,55 @@ export const Messages = (props) => {
     const socketRef = useRef(null); // Reference for WebSocket connection
 
     useEffect(() => {
-        // Establish a WebSocket connection to the server
-        const fetchpastMsg = async () => {
-    
-          try {
-            const response = await fetch(`https://chatter-backend-jy95.onrender.com/api/chats/${chatId}/messages/`, {
-              method: 'GET', // Method can be GET or POST depending on the API
-              headers: {
-                'Authorization': `Bearer ${access}`, // Set Bearer token in headers
-                'Content-Type': 'application/json', // Set content type if needed
-              },
-            });
-    
-            if (!response.ok) {
-              throw new Error('Network response was not ok'); // Handle HTTP errors
-            }
-    
-            const data = await response.json(); 
-            console.log(data)
-            data.map((msgd)=>{
-                appendMessage(msgd.content,msgd.sender.username)
-                return (
-                    console.log(msgd.content,msgd.sender.username)
-                )
-            })
-          }
-          catch(err){
-            console.log(err)
-          }
-        };
-        fetchpastMsg();
-        socketRef.current = new WebSocket(`ws://chatter-backend-jy95.onrender.com/ws/chat/${chatId}/?token=${access}`);
+        // Function to fetch past messages
+        const fetchPastMsg = async () => {
+            try {
+                const response = await fetch(`https://chatter-backend-jy95.onrender.com/api/chats/${chatId}/messages/`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${access}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
 
-        // Function to append messages to the state
-        const appendMessage = (message, sender) => {
-            setMessages((prevMessages) => [...prevMessages, { message, sender }]);
-            scrollToBottom()
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                data.forEach((msgd) => {
+                    appendMessage(msgd.content, msgd.sender.username);
+                });
+
+                // Establish WebSocket connection after fetching past messages
+                socketRef.current = new WebSocket(`wss://chatter-backend-jy95.onrender.com/ws/chat/${chatId}/?token=${access}`);
+
+                // Event listener for incoming messages
+                socketRef.current.addEventListener('message', (event) => {
+                    const data = JSON.parse(event.data);
+                    if (data.sender !== props.username) {
+                        appendMessage(data.message, data.sender);
+                    }
+                });
+            } catch (err) {
+                console.log(err);
+            }
         };
 
-        // Event listener for incoming messages
-        socketRef.current.addEventListener('message', (event) => {
-            const data = JSON.parse(event.data); // Parse incoming JSON data
-            if (data.sender!==props.username){
-              appendMessage(data.message, data.sender); // Add sender info for styling
-            }
-        });
+        fetchPastMsg();
 
         return () => {
-            socketRef.current.close(); // Clean up the WebSocket connection on component unmount
+            if (socketRef.current) {
+                socketRef.current.close(); // Clean up the WebSocket connection on component unmount
+            }
         };
     }, [chatId, access]);
+
+    // Function to append messages to the state
+    const appendMessage = (message, sender) => {
+        setMessages((prevMessages) => [...prevMessages, { message, sender }]);
+        scrollToBottom();
+    };
 
     // Function to scroll to the bottom of the messages
     const scrollToBottom = () => {
@@ -71,7 +69,7 @@ export const Messages = (props) => {
     // Function to send a message to the server in JSON format
     const sendMessage = () => {
         if (messageInput.trim() !== '') {
-            const messageObj = { message: messageInput }; // Create message object
+            const messageObj = { message: messageInput };
             socketRef.current.send(JSON.stringify(messageObj)); // Send JSON object
             setMessages((prevMessages) => [...prevMessages, { message: messageInput, sender: props.username }]); // Append your message
             setMessageInput(''); // Clear the input field
@@ -96,7 +94,6 @@ export const Messages = (props) => {
                             key={index} 
                             className={`p-2 my-1 rounded-xl ${msg.sender === props.username ? 'bg-blue-300 ml-auto' : 'bg-gray-200'} w-fit`}
                         >
-                            
                             {msg.message}
                         </div>
                     ))}
