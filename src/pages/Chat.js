@@ -90,8 +90,6 @@ export const Chat = (props) => {
         <div className="flex relative mt-2 items-center">
           <div className="absolute left-5 text-lg font-serif">Chatter</div>
           <div className="flex m-auto gap-5">
-            <p className="font-semibold text-gray-500">Post</p>
-            <p className="font-semibold text-gray-500">Chat</p>
           </div>
           {/* Right-side buttons can be added here if needed */}
         </div>
