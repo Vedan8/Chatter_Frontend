@@ -9,7 +9,7 @@ export const Login = (props) => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const SignUpButton=()=>{
-        navigate('/SignUp')
+        navigate('/')
     }
     const postNavigate=()=>{
         navigate('/Chats')

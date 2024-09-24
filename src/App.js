@@ -19,8 +19,8 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route path='' element={<Landing/>}/>
-          <Route path='SignUp' element={<SignUp setUseremail={setUseremail} />}/>
+          {/* <Route path='' element={<Landing/>}/> */}
+          <Route path='' element={<SignUp setUseremail={setUseremail} />}/>
           <Route path='Login' element={<Login setAccess={setAccess} setUsername={setUsername} />}/>
           <Route path='OtpValidation' element={<OtpValidation useremail={useremail} setAccess={setAccess} />}/>
           <Route path='Username' element={<Username access={access} />}/>
