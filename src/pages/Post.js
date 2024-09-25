@@ -6,11 +6,13 @@ export const Post = (props) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [likedPosts, setLikedPosts] = useState({}); // Track liked/unliked state
 
   const navigate = useNavigate();
-    const ChatButton=()=>{
-        navigate('/Chats')
-    }
+  const ChatButton = () => {
+    navigate('/Chats');
+  };
+
   // Fetch posts on component mount
   useEffect(() => {
     const fetchPosts = async () => {
@@ -41,13 +43,24 @@ export const Post = (props) => {
     fetchPosts();
   }, []);
 
-  // Handle like button click (updating the like count locally)
+  // Handle like button click (toggling the like state)
   const handleLike = async (postIndex) => {
     const updatedPosts = [...posts];
-    updatedPosts[postIndex].likes += 1; // Increment the like count locally
+    const postId = updatedPosts[postIndex].id;
+    const isLiked = likedPosts[postId];
+
+    // Toggle like count locally
+    if (isLiked) {
+      updatedPosts[postIndex].likes -= 1; // Decrease like count
+    } else {
+      updatedPosts[postIndex].likes += 1; // Increase like count
+    }
+
+    // Update likedPosts state
+    setLikedPosts({ ...likedPosts, [postId]: !isLiked });
     setPosts(updatedPosts);
 
-    // If you want to persist the like change, make an API call here
+    // Persist the like change to the database
     try {
       const post = updatedPosts[postIndex];
 
@@ -66,13 +79,15 @@ export const Post = (props) => {
 
   return (
     <div className="bg-cyan-100 min-h-screen w-screen flex justify-center items-center">
-      <div className="bg-cyan-50 h-[90vh] w-[90vw] rounded-2xl shadow-xl p-6 flex flex-col">
+      <div className="bg-cyan-50 h-[full] w-[full] sm:w-[90vw] sm:h-[90vh] rounded-2xl shadow-xl p-6 flex flex-col">
         {/* Header */}
         <div className="flex relative mt-2 items-center">
           <div className="absolute left-5 text-lg font-serif">Chatter</div>
           <div className="flex m-auto gap-5">
             <p className="font-semibold text-gray-500">Posts</p>
-            <span onClick={ChatButton} className='cursor-pointer'><p className="font-semibold text-gray-500">Chats</p></span>
+            <span onClick={ChatButton} className='cursor-pointer'>
+              <p className="font-semibold text-gray-500">Chats</p>
+            </span>
           </div>
         </div>
 
@@ -88,7 +103,7 @@ export const Post = (props) => {
             <p className="text-center text-gray-500">No posts available</p>
           ) : (
             posts.map((post, index) => (
-              <div key={index} className="bg-white p-4 rounded-lg shadow-md mb-4 w-[50%] h-full m-auto">
+              <div key={index} className="bg-white p-4 rounded-lg shadow-md mb-4 w-full sm:w-[500px] h-fit m-auto">
                 {/* User Info */}
                 <div className="flex items-center mb-2">
                   <img
@@ -115,9 +130,9 @@ export const Post = (props) => {
                   <p className="text-gray-500">{post.likes} Likes</p>
                   <button
                     onClick={() => handleLike(index)}
-                    className="flex items-center px-3 py-1 rounded-lg text-white bg-yellow-500 hover:bg-yellow-700"
+                    className={`flex items-center px-3 py-1 rounded-lg text-white ${likedPosts[post.id] ? 'bg-red-500' : 'bg-yellow-500'} hover:${likedPosts[post.id] ? 'bg-red-700' : 'bg-yellow-700'}`}
                   >
-                    Like
+                    {likedPosts[post.id] ? 'Unlike' : 'Like'}
                   </button>
                 </div>
               </div>
