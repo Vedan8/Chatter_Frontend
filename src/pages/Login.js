@@ -12,7 +12,7 @@ export const Login = (props) => {
         navigate('/')
     }
     const postNavigate=()=>{
-        navigate('/Chats')
+        navigate('/Posts')
     }
     const schema = yup.object().shape({
         email: yup

@@ -14,6 +14,9 @@ export const Chat = (props) => {
   const MessageRoute=()=>{
       navigate('/Messages')
   }
+  const postNavigate=()=>{
+    navigate('/Posts')
+  }
   useEffect(() => {
     const fetchUsers = async () => {
       setLoading(true);
@@ -90,8 +93,9 @@ export const Chat = (props) => {
         <div className="flex relative mt-2 items-center">
           <div className="absolute left-5 text-lg font-serif">Chatter</div>
           <div className="flex m-auto gap-5">
+            <span onClick={postNavigate} className='cursor-pointer'><p className="font-semibold text-gray-500">Posts</p></span>
+            <p className="font-semibold text-gray-500">Chats</p>
           </div>
-          {/* Right-side buttons can be added here if needed */}
         </div>
 
         {/* Success and Error Messages */}

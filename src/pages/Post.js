@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Circles } from 'react-loader-spinner';
+import { useNavigate } from 'react-router-dom';
 
 export const Post = (props) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-
+  const navigate = useNavigate();
+    const ChatButton=()=>{
+        navigate('/Chats')
+    }
   // Fetch posts on component mount
   useEffect(() => {
     const fetchPosts = async () => {
@@ -67,8 +71,8 @@ export const Post = (props) => {
         <div className="flex relative mt-2 items-center">
           <div className="absolute left-5 text-lg font-serif">Chatter</div>
           <div className="flex m-auto gap-5">
-            <p className="font-semibold text-gray-500">Post</p>
-            <p className="font-semibold text-gray-500">Chat</p>
+            <p className="font-semibold text-gray-500">Posts</p>
+            <span onClick={ChatButton} className='cursor-pointer'><p className="font-semibold text-gray-500">Chats</p></span>
           </div>
         </div>
 
@@ -84,23 +88,22 @@ export const Post = (props) => {
             <p className="text-center text-gray-500">No posts available</p>
           ) : (
             posts.map((post, index) => (
-              <div key={index} className="bg-white p-4 rounded-lg shadow-md mb-4">
+              <div key={index} className="bg-white p-4 rounded-lg shadow-md mb-4 w-[50%] h-full m-auto">
                 {/* User Info */}
                 <div className="flex items-center mb-2">
                   <img
                     src={post.user.profileImage}
-                    alt={post.user.username}
                     className="w-10 h-10 rounded-full mr-3 object-cover"
                   />
-                  <p className="font-semibold text-gray-800">{post.user.username}</p>
+                  <p className="font-semibold text-gray-800">{post.user}</p>
                 </div>
 
                 {/* Post Image */}
                 {post.postImage && (
                   <img
-                    src={post.postImage.url}
+                    src={post.imageUrl}
                     alt="Post"
-                    className="w-full h-64 object-cover rounded-lg mb-2"
+                    className="w-full object-fit rounded-lg mb-2 max-h-[100%]"
                   />
                 )}
 
