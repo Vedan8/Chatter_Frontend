@@ -143,7 +143,7 @@ export const Chat = (props) => {
               >
                 {/* User Profile Image */}
                 <img
-                  src={user.profileImage}
+                  src={user.profileImageUrl}
                   alt={`${user.username}'s profile`}
                   className="w-12 h-12 rounded-full mr-4 object-cover"
                 />

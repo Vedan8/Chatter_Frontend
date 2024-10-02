@@ -13,7 +13,7 @@ export const Post = (props) => {
     navigate('/Chats');
   };
 
-  // Fetch posts on component mount
+  // Fetch posts and liked posts on component mount
   useEffect(() => {
     const fetchPosts = async () => {
       setLoading(true);
@@ -22,7 +22,7 @@ export const Post = (props) => {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${props.access}`, // Add Bearer token in the Authorization header
+            'Authorization': `Bearer ${props.access}`,
           },
         });
 
@@ -32,6 +32,24 @@ export const Post = (props) => {
 
         const data = await response.json();
         setPosts(data);
+
+        // Check the user's liked posts from the server
+        const likedResponse = await fetch('https://chatter-backend-jy95.onrender.com/api/likes/', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${props.access}`,
+          },
+        });
+
+        if (likedResponse.ok) {
+          const likedData = await likedResponse.json();
+          const likedPostIds = {};
+          likedData.forEach((like) => {
+            likedPostIds[like.post.id] = true; // Set post ID as liked
+          });
+          setLikedPosts(likedPostIds); // Update the likedPosts state
+        }
       } catch (err) {
         console.error(err);
         setError(err.message || 'An unexpected error occurred.');
@@ -41,7 +59,7 @@ export const Post = (props) => {
     };
 
     fetchPosts();
-  }, []);
+  }, [props.access]);
 
   // Handle like button click (toggling the like state)
   const handleLike = async (postIndex) => {
@@ -49,29 +67,36 @@ export const Post = (props) => {
     const postId = updatedPosts[postIndex].id;
     const isLiked = likedPosts[postId];
 
-    // Toggle like count locally
-    if (isLiked) {
-      updatedPosts[postIndex].likes -= 1; // Decrease like count
-    } else {
-      updatedPosts[postIndex].likes += 1; // Increase like count
-    }
-
     // Update likedPosts state
-    setLikedPosts({ ...likedPosts, [postId]: !isLiked });
-    setPosts(updatedPosts);
+    const newLikedPosts = { ...likedPosts, [postId]: !isLiked };
 
-    // Persist the like change to the database
+    // Persist the like/unlike change to the database
     try {
-      const post = updatedPosts[postIndex];
+      if (isLiked) {
+        // If post is liked, we need to unlike it
+        await fetch(`https://chatter-backend-jy95.onrender.com/api/likes/${postId}/`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${props.access}`,
+          },
+        });
+        updatedPosts[postIndex].likes -= 1; // Decrease like count
+      } else {
+        // If post is unliked, we need to like it
+        await fetch('https://chatter-backend-jy95.onrender.com/api/likes/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${props.access}`,
+          },
+          body: JSON.stringify({ post: postId }), // Assuming post ID is needed
+        });
+        updatedPosts[postIndex].likes += 1; // Increase like count
+      }
 
-      await fetch(`https://chatter-backend-jy95.onrender.com/api/posts/${post.id}/`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${props.access}`, // Add Bearer token in the Authorization header
-        },
-        body: JSON.stringify({ likes: post.likes }), // Update the like count on the server
-      });
+      setLikedPosts(newLikedPosts);
+      setPosts(updatedPosts);
     } catch (err) {
       console.error('Failed to update like:', err);
     }
@@ -107,10 +132,10 @@ export const Post = (props) => {
                 {/* User Info */}
                 <div className="flex items-center mb-2">
                   <img
-                    src={post.user.profileImage}
+                    src={post.user.profileImageUrl}
                     className="w-10 h-10 rounded-full mr-3 object-cover"
                   />
-                  <p className="font-semibold text-gray-800">{post.user}</p>
+                  <p className="font-semibold text-gray-800">{post.user.username}</p>
                 </div>
 
                 {/* Post Image */}
