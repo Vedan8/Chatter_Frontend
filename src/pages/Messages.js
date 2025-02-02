@@ -12,7 +12,7 @@ export const Messages = (props) => {
         // Function to fetch past messages
         const fetchPastMsg = async () => {
             try {
-                const response = await fetch(`https://chatter-backend-jy95.onrender.com/api/chats/${chatId}/messages/`, {
+                const response = await fetch(`https://127.0.0.1:8000/api/chats/${chatId}/messages/`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${access}`,
@@ -30,7 +30,7 @@ export const Messages = (props) => {
                 });
 
                 // Establish WebSocket connection after fetching past messages
-                socketRef.current = new WebSocket(`wss://chatter-backend-jy95.onrender.com/ws/chat/${chatId}/?token=${access}`);
+                socketRef.current = new WebSocket(`wss://127.0.0.1:8000/ws/chat/${chatId}/?token=${access}`);
 
                 // Event listener for incoming messages
                 socketRef.current.addEventListener('message', (event) => {

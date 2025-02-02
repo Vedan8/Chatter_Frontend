@@ -57,7 +57,7 @@ export const OtpValidation = (props) => {
       };
       console.log('Submitting data:', newdata);
 
-      const response = await fetch('https://chatter-backend-jy95.onrender.com/api/verify-otp/', {
+      const response = await fetch('https://127.0.0.1:8000/api/verify-otp/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

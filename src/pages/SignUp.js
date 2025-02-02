@@ -41,7 +41,7 @@ export const SignUp = (props) => {
 
             console.log('Submitting data:', data);
 
-            const response = await fetch('https://chatter-backend-jy95.onrender.com/api/register/', {
+            const response = await fetch('https://127.0.0.1:8000/api/register/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

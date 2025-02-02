@@ -26,7 +26,7 @@ export const Username=(props)=>{
             setSuccessMessage(null);
             console.log('Submitting data:', data);
 
-            const response = await fetch('https://chatter-backend-jy95.onrender.com/api/update-username/', {
+            const response = await fetch('https://127.0.0.1:8000/api/update-username/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

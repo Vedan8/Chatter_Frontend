@@ -18,7 +18,7 @@ export const Post = (props) => {
     const fetchPosts = async () => {
       setLoading(true);
       try {
-        const response = await fetch('https://chatter-backend-jy95.onrender.com/api/posts/', {
+        const response = await fetch('https://127.0.0.1:8000/api/posts/', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ export const Post = (props) => {
         setPosts(data);
 
         // Check the user's liked posts from the server
-        const likedResponse = await fetch('https://chatter-backend-jy95.onrender.com/api/likes/', {
+        const likedResponse = await fetch('https://127.0.0.1:8000/api/likes/', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -74,7 +74,7 @@ export const Post = (props) => {
     try {
       if (isLiked) {
         // If post is liked, we need to unlike it
-        await fetch(`https://chatter-backend-jy95.onrender.com/api/likes/${postId}/`, {
+        await fetch(`https://127.0.0.1:8000/api/likes/${postId}/`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -84,7 +84,7 @@ export const Post = (props) => {
         updatedPosts[postIndex].likes -= 1; // Decrease like count
       } else {
         // If post is unliked, we need to like it
-        await fetch('https://chatter-backend-jy95.onrender.com/api/likes/', {
+        await fetch('https://127.0.0.1:8000/api/likes/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

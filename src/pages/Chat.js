@@ -25,7 +25,7 @@ export const Chat = (props) => {
           throw new Error('Authentication token not found. Please log in.');
         }
 
-        const response = await fetch('https://chatter-backend-jy95.onrender.com/api/users/', {
+        const response = await fetch('https://127.0.0.1:8000/api/users/', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ export const Chat = (props) => {
     setChatError(null);
 
     try {
-      const response = await fetch('https://chatter-backend-jy95.onrender.com/api/chats/create/', {
+      const response = await fetch('https://127.0.0.1:8000/api/chats/create/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
