@@ -70,11 +70,11 @@ const UsersPage = () => {
       <div className="flex items-center justify-between w-full max-w-2xl">
         {/* Explore Posts button */}
         <Link
-          to="/posts"
-          className="px-6 py-2 text-lg font-semibold bg-gradient-to-r from-blue-400 to-purple-500 text-white rounded-lg shadow-lg hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-600 transition-all"
-        >
-          Explore Posts
-        </Link>
+  to="/posts"
+  className="px-6 py-2 text-lg font-semibold bg-gradient-to-r from-blue-400 to-purple-500 text-white rounded-lg shadow-lg hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-600 transition-all relative z-10"
+>
+  Explore Posts
+</Link>
 
         {/* Chat heading */}
         <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 animate__animated animate__fadeIn">
