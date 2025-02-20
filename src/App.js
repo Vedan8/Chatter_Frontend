@@ -1,35 +1,32 @@
 import './App.css';
-import {BrowserRouter as Router,Routes,Route} from 'react-router-dom';
-import { Landing } from './pages/Landing';
-import { SignUp } from './pages/SignUp';
-import { OtpValidation } from './pages/OtpValidation';
-import { Login } from './pages/Login';
-import { useState } from 'react';
-import { Username } from './pages/Username';
-import { Post } from './pages/Post';
-import { Chat } from './pages/Chat';
-import { Messages } from './pages/Messages';
+import 'animate.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LandingPage from './pages/components/LandingPage';
+import Register from './pages/components/Register';
+import Login from './pages/components/Login';
+import Posts from './pages/components/Post';
+import { AuthProvider } from './context/AuthContext';
+import OtpValidation from './pages/components/OtpValidation';
+import SetProfile from './pages/components/SetProfile';
+import Chat from './pages/components/Chat';
+import Messages from './pages/components/Messages';
 
 function App() {
-  const [useremail,setUseremail]=useState("")
-  const [access,setAccess]=useState("")
-  const [chat_id,setChat_id]=useState("")
-  const [username,setUsername]=useState("")
-  return (
-    <div className="App">
+  return (  
+    <AuthProvider>
       <Router>
         <Routes>
-          {/* <Route path='' element={<Landing/>}/> */}
-          <Route path='' element={<SignUp setUseremail={setUseremail} />}/>
-          <Route path='Login' element={<Login setAccess={setAccess} setUsername={setUsername} />}/>
-          <Route path='OtpValidation' element={<OtpValidation useremail={useremail} setAccess={setAccess} />}/>
-          <Route path='Username' element={<Username access={access} />}/>
-          <Route path='Posts' element={<Post access={access} />}/>
-          <Route path='Chats' element={<Chat access={access} setChat_id={setChat_id} />}/>
-          <Route path='Messages' element={<Messages access={access} chat_id={chat_id} username={username} />}/>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/otpvalidate" element={<OtpValidation />} />
+          <Route path="/setprofile" element={<SetProfile />} />
+          <Route path="/posts" element={<Posts />} />
+          <Route path="/chat" element={<Chat />} />
+          <Route path="/message" element={<Messages />} />
         </Routes>
       </Router>
-    </div>
+    </AuthProvider>
   );
 }
 
