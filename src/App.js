@@ -10,6 +10,7 @@ import OtpValidation from './pages/components/OtpValidation';
 import SetProfile from './pages/components/SetProfile';
 import Chat from './pages/components/Chat';
 import Messages from './pages/components/Messages';
+import NewPost from './pages/components/NewPost';
 
 function App() {
   return (  
@@ -24,6 +25,7 @@ function App() {
           <Route path="/posts" element={<Posts />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/message" element={<Messages />} />
+          <Route path="/new-post" element={<NewPost />} />
         </Routes>
       </Router>
     </AuthProvider>

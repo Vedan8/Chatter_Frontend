@@ -88,7 +88,7 @@ const Login = () => {
           </div>
           <button
             type="submit"
-            className="w-full py-3 mt-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:opacity-90 shadow-lg transition-transform transform hover:scale-105"
+            className="w-full py-3 mt-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:opacity-90 shadow-lg transition-transform transform hover:scale-105 flex justify-center"
             disabled={loading} // Disable button while loading
           >
             {loading ? (
