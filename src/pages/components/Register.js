@@ -12,7 +12,7 @@ const Register = () => {
     console.log('Registering with:', { email, password });
     setLoading(true); // Set loading to true when API call starts
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/register/', {
+      const response = await axios.post('https://chatter-backend-jy95.onrender.com/api/register/', {
         email: email,
         password: password,
       });

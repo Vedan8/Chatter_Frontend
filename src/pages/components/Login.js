@@ -18,7 +18,7 @@ const Login = () => {
     console.log('Login with:', { email, password });
     setLoading(true); // Set loading to true before starting the request
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/login/', {
+      const response = await axios.post('https://chatter-backend-jy95.onrender.com/api/login/', {
         email: email,
         password: password,
       });

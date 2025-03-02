@@ -16,7 +16,7 @@ const UsersPage = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/api/users/", {
+        const response = await axios.get("https://chatter-backend-jy95.onrender.com/api/users/", {
           headers: {
             Authorization: `Bearer ${access}`,
             "Content-Type": "application/json",
@@ -37,7 +37,7 @@ const UsersPage = () => {
   const handleUserClick = async (username) => {
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/chats/create/",
+        "https://chatter-backend-jy95.onrender.com/api/chats/create/",
         { username },
         {
           headers: {
