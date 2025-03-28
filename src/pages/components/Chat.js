@@ -95,7 +95,7 @@ const UsersPage = () => {
           users.map((user) => (
             <div
               key={user.id}
-              className="bg-white bg-opacity-10 rounded-xl backdrop-blur-lg shadow-xl p-4 flex items-center space-x-4 animate__animated animate__fadeIn animate__delay-2s"
+              className="bg-white bg-opacity-10 rounded-xl backdrop-blur-lg shadow-xl p-4 flex items-center space-x-4 animate__animated animate__fadeIn"
               onClick={() => handleUserClick(user.username)} // Trigger the chat creation on click
             >
               <img

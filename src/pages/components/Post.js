@@ -153,14 +153,14 @@ const Posts = () => {
 
       <div className="w-full max-w-2xl mt-8 space-y-6">
         {posts.length === 0 ? (
-          <p className="text-gray-400 text-center animate__animated animate__fadeIn animate__delay-1s">
+          <p className="text-gray-400 text-center animate__animated animate__fadeIn">
             No posts available.
           </p>
         ) : (
           posts.map((post) => (
             <div
               key={post.id}
-              className="bg-white bg-opacity-10 rounded-xl backdrop-blur-lg shadow-xl p-4 flex flex-col items-center space-y-4 animate__animated animate__fadeIn animate__delay-2s"
+              className="bg-white bg-opacity-10 rounded-xl backdrop-blur-lg shadow-xl p-4 flex flex-col items-center space-y-4 animate__animated animate__fadeIn"
             >
               <img
                 src={post.imageUrl}
@@ -188,7 +188,7 @@ const Posts = () => {
               </div>
 
               {showComments[post.id] && (
-                <div className="mt-4 w-full space-y-4 animate__animated animate__fadeIn animate__delay-2s">
+                <div className="mt-4 w-full space-y-4 animate__animated animate__fadeIn">
                   {comments[post.id] && comments[post.id].length > 0 ? (
                     comments[post.id].map((comment) => (
                       <div key={comment.id} className="text-sm text-gray-300">
@@ -202,7 +202,7 @@ const Posts = () => {
               )}
 
               {showComments[post.id] && (
-                <div className="mt-4 w-full animate__animated animate__fadeIn animate__delay-2s">
+                <div className="mt-4 w-full animate__animated animate__fadeIn">
                   <input
                     type="text"
                     value={newComment}
