@@ -106,7 +106,7 @@ const OtpValidation = () => {
                 value={digit}
                 onChange={(e) => handleChange(index, e)}
                 onKeyDown={(e) => handleKeyDown(index, e)}
-                className="w-12 h-12 text-center border bg-gray-800 text-white rounded-lg text-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-8 h-8 sm:w-12 sm:h-12 text-center border bg-gray-800 text-white rounded-lg text-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             ))}
           </div>
