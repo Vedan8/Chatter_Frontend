@@ -11,11 +11,13 @@ import SetProfile from './pages/components/SetProfile';
 import Chat from './pages/components/Chat';
 import Messages from './pages/components/Messages';
 import NewPost from './pages/components/NewPost';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 function App() {
   return (  
     <AuthProvider>
-      <Router>
+      <GoogleOAuthProvider clientId="839785403178-fhlf9mf98u29bg71m26kche4cq4o2bea.apps.googleusercontent.com">
+        <Router>
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/register" element={<Register />} />
@@ -27,7 +29,8 @@ function App() {
           <Route path="/message" element={<Messages />} />
           <Route path="/new-post" element={<NewPost />} />
         </Routes>
-      </Router>
+        </Router>
+      </GoogleOAuthProvider>
     </AuthProvider>
   );
 }

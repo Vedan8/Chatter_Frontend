@@ -15,7 +15,7 @@ const Message = () => {
     try {
       setLoading(true); // Show loader
       const response = await axios.get(
-        `https://chatter-backend-jy95.onrender.com/api/chats/${chat_id}/messages/`,
+        `http://127.0.0.1:8000/api/chats/${chat_id}/messages/`,
         {
           headers: { Authorization: `Bearer ${access}` },
         }
@@ -37,7 +37,7 @@ const Message = () => {
     fetchMessages();
 
     const socket = new WebSocket(
-      `wss://chatter-backend-jy95.onrender.com/ws/chat/${chat_id}/?token=${access}`
+      `ws://127.0.0.1:8000/ws/chat/${chat_id}/?token=${access}`
     );
 
     socket.onopen = () => console.log("WebSocket connected.");
