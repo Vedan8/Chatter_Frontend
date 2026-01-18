@@ -20,7 +20,7 @@ const SetProfile = () => {
   const sendUsername = async () => {
     try {
       const response = await axios.post(
-        'http://127.0.0.1:8000/api/update-username/',
+        'https://chatter-backend-jy95.onrender.com/api/update-username/',
         { username },
         {
           headers: {
@@ -44,7 +44,7 @@ const SetProfile = () => {
 
     try {
       const response = await axios.post(
-        'http://127.0.0.1:8000/api/update-profileImage/',
+        'https://chatter-backend-jy95.onrender.com/api/update-profileImage/',
         formData,
         {
           headers: {

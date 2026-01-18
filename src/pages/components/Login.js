@@ -14,7 +14,7 @@ const Login = () => {
   const handleGoogleLogin = useGoogleLogin({
     onSuccess: tokenResponse => {
       console.log(tokenResponse.access_token)
-      axios.post('http://127.0.0.1:8000/api/google-login/', { token: tokenResponse.access_token })
+      axios.post('https://chatter-backend-jy95.onrender.com/api/google-login/', { token: tokenResponse.access_token })
         .then((res) => {
           console.log('Backend response:', res.data);
           setAccess(res.data.access);
@@ -31,7 +31,7 @@ const Login = () => {
     console.log('Login with:', { email, password });
     setLoading(true);
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/login/', { email, password });
+      const response = await axios.post('https://chatter-backend-jy95.onrender.com/api/login/', { email, password });
       console.log(response.data);
       setAccess(response.data.access);
       setUsername(response.data.username);

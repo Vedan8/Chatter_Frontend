@@ -27,7 +27,7 @@ const NewPost = () => {
 
     try {
       const response = await axios.post(
-        'http://127.0.0.1:8000/api/posts/',
+        'https://chatter-backend-jy95.onrender.com/api/posts/',
         formData,
         {
           headers: {

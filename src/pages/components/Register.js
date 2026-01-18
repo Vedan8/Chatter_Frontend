@@ -21,7 +21,7 @@ const Register = () => {
   const RegisterUser = async () => {
     setLoading(true);
     try {
-      await axios.post('http://127.0.0.1:8000/api/register/', {
+      await axios.post('https://chatter-backend-jy95.onrender.com/api/register/', {
         email,
         password,
       });
@@ -37,7 +37,7 @@ const Register = () => {
   const handleGoogleLogin = useGoogleLogin({
     onSuccess: tokenResponse => {
       axios
-        .post('http://127.0.0.1:8000/api/google-login/', {
+        .post('https://chatter-backend-jy95.onrender.com/api/google-login/', {
           token: tokenResponse.access_token,
         })
         .then(res => {

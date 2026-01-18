@@ -64,7 +64,7 @@ const OtpValidation = () => {
     setLoading(true); // Show loader while OTP is being sent
     try {
       console.log('Sending OTP with:', { email: email, otp });
-      const response = await axios.post("http://127.0.0.1:8000/api/verify-otp/", { email: email, otp });
+      const response = await axios.post("https://chatter-backend-jy95.onrender.com/api/verify-otp/", { email: email, otp });
       console.log(response.data);
       setAccess(response.data.access);
       navigate('/setprofile');

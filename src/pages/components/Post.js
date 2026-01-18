@@ -14,7 +14,7 @@ const Posts = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/api/posts/", {
+        const response = await axios.get("https://chatter-backend-jy95.onrender.com/api/posts/", {
           headers: {
             Authorization: `Bearer ${access}`,
             "Content-Type": "application/json",
@@ -32,7 +32,7 @@ const Posts = () => {
   // Handle like/unlike logic
   const handleLike = async (postId, isLiked) => {
     try {
-      const url = `http://127.0.0.1:8000/api/posts/${postId}/like/`;
+      const url = `https://chatter-backend-jy95.onrender.com/api/posts/${postId}/like/`;
       const headers = {
         Authorization: `Bearer ${access}`,
         "Content-Type": "application/json",
@@ -61,7 +61,7 @@ const Posts = () => {
   // Handle new comment submission
   const handleCommentSubmit = async (postId) => {
     try {
-      const url = `http://127.0.0.1:8000/api/comments/${postId}/`;
+      const url = `https://chatter-backend-jy95.onrender.com/api/comments/${postId}/`;
       const headers = {
         Authorization: `Bearer ${access}`,
         "Content-Type": "application/json",
@@ -81,7 +81,7 @@ const Posts = () => {
   // Fetch comments for a specific post
   const fetchComments = async (postId) => {
     try {
-      const url = `http://127.0.0.1:8000/api/comments/${postId}/`;
+      const url = `https://chatter-backend-jy95.onrender.com/api/comments/${postId}/`;
       const response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${access}`,
