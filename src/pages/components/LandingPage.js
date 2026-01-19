@@ -46,20 +46,18 @@ const LandingPage = () => {
           className="mt-8 flex flex-col sm:flex-row sm:justify-center sm:space-x-6 space-y-4 sm:space-y-0 animate-fadeIn"
           style={{ animation: 'fadeIn 2s ease-out' }}
         >
-          <a
-            href=""
+          <button
             className="btn px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:opacity-90 shadow-lg transition-transform transform hover:scale-105"
             onClick={handleRegisterClick}
           >
             Get Started
-          </a>
-          <a
-            href=""
+          </button>
+          <button
             className="btn px-6 py-3 border border-white rounded-lg hover:bg-white hover:text-gray-900 transition-transform transform hover:scale-105"
             onClick={handleLoginClick}
           >
             Login
-          </a>
+          </button>
         </div>
 
         <div

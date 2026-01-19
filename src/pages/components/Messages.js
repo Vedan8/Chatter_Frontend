@@ -37,7 +37,7 @@ const Message = () => {
     fetchMessages();
 
     const socket = new WebSocket(
-      `ws://127.0.0.1:8000/ws/chat/${chat_id}`
+      `wss://chatter-backend-jy95.onrender.com/ws/chat/${chat_id}`
     );
 
     socket.onopen = () => console.log("WebSocket connected.");
